@@ -6,6 +6,10 @@
 
 {% block content %}
   <form method="post">
+    <label for="type">Type</label>
+    <input name="type" id="type" value="{{ request.form['type'] or post['title'] }}" required>
+     <label for="label">Label</label>
+    <input name="label" id="label" value="{{ request.form['label'] or post['title'] }}" required>
     <label for="title">Title</label>
     <input name="title" id="title"
       value="{{ request.form['title'] or post['title'] }}" required>

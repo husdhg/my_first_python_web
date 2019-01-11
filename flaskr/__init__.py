@@ -12,7 +12,7 @@ from flask import Flask
 def create_app(test_config=None):
     # create and configure the app
     # 创建flask实例，__name__为当前Python模块名称
-    app = Flask(__name__, instance_relative_config=True)
+    from flaskr.database import app
     app.config.from_mapping(     # 应用的缺省配置
         SECRET_KEY='dev', # 是被 Flask 和扩展用于保证数据安全的。在开发过程中， 为了方便可以设置为 'dev' ，但是在发布的时候应当使用一个随机值来 重载它。
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'), # SQLite 数据库文件存放在路径。
@@ -34,8 +34,11 @@ def create_app(test_config=None):
         pass
 
     # 导入调用数据库函数
-    from . import db
-    db.init_app(app)
+    #from flaskr.database import db_session
+
+    #@app.teardown_appcontext
+    #def shutdown_session(exception=None):
+     #   db_session.remove()
 
     # 使用 app.register_blueprint() 导入并注册 蓝图。新的代码放在工厂函数的尾部返回应用之前。
     # 注册登录蓝图
